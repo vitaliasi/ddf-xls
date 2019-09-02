@@ -11,6 +11,6 @@ public class adminUtils extends Utils {
 
     public void tc001_helper() throws Exception {
             login();
-//            addNewEmployee("");
+            addNewEmployee("");
         }
     }

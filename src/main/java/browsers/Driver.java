@@ -7,26 +7,30 @@ import java.util.concurrent.TimeUnit;
 public class Driver {
 
 
-    protected static WebDriver getDriver() {
+    protected static WebDriver openChrome() {
         String os = System.getProperty("os.name").toLowerCase();
-        WebDriver driver = new ChromeDriver();
         if (os.contains("mac")) {
-            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"/chromedriver");
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"/src/test/resources/chromedriver");
+            WebDriver driver = new ChromeDriver();
+            return driver;
         } else {
-            System.setProperty("webdriver.chrome.driver", System.getProperty("C:\\Users\\vitalija.silvestruk\\IdeaProjects\\ddf-xls\\src\\test\\resources\\chromedriver.exe"));
-//            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\chromedriver.exe");
+            WebDriver driver = new ChromeDriver();
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\src\\test\\resources\\chromedriver.exe");
+            return driver;
         }
 //        System.setProperty("webdriver.chrome.driver", "C:\Users\Ampacattu\Downloads\chromedriver_win32\chromedriver.exe");
-        return driver;
+//        return driver;
     }
 
 
-//    private static WebDriver driver = new ChromeDriver();
+
+    private static WebDriver driver = openChrome();
+
     //TODO add edge and firefox
 
-//    protected static WebDriver getDriver() {
-//        return driver;
-//    }
+    protected static WebDriver getDriver() {
+        return driver;
+    }
 
     protected static void open(String url) {
         getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

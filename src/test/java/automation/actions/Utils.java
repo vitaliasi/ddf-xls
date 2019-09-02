@@ -23,7 +23,9 @@ public class Utils extends Action {
 
     public void login() throws Exception {
         getDriver();
+        System.out.println("getDriver");
         open("https://opensource-demo.orangehrmlive.com");
+        System.out.println("open");
         action.setText("Populate field [Username] with 'Admin'", By.id("txtUsername"), "Admin");
         action.setText("Populate field [Password] with 'admin123'", By.id("txtPassword"), "admin123");
         action.click("Click [Login]", By.id("btnLogin"));
