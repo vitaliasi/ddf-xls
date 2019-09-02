@@ -1,5 +1,6 @@
 package browsers;
 
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.concurrent.TimeUnit;
@@ -9,13 +10,16 @@ public class Driver {
 
     protected static WebDriver openChrome() {
         String os = System.getProperty("os.name").toLowerCase();
+        System.out.println(os);
         if (os.contains("mac")) {
             System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"/src/test/resources/chromedriver");
             WebDriver driver = new ChromeDriver();
             return driver;
         } else {
-            WebDriver driver = new ChromeDriver();
             System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\src\\test\\resources\\chromedriver.exe");
+            System.out.println(System.getProperty("user.dir") + "\\src\\test\\resources\\chromedriver.exe");
+            WebDriver driver = new ChromeDriver();
+            System.out.println(System.getProperty("user.dir") + "\\src\\test\\resources\\chromedriver.exe");
             return driver;
         }
 //        System.setProperty("webdriver.chrome.driver", "C:\Users\Ampacattu\Downloads\chromedriver_win32\chromedriver.exe");

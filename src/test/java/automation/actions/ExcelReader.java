@@ -84,14 +84,14 @@ public class ExcelReader {
 //    public static class ReadExcel {
 
     public static FileInputStream setPath() throws Exception {
-        if (Platform.getCurrent().toString().equalsIgnoreCase("MAC")) {
-            FileInputStream path = new FileInputStream("src/test/resources/ddf.xls");
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("mac")) {
+            FileInputStream path = new FileInputStream(System.getProperty("user.dir") + "src/test/resources/ddf.xls");
             return path;
-        } else if (Platform.getCurrent().toString().contains("WIN")) {
-            FileInputStream path = new FileInputStream("\\src\\test\\resources\\ddf.xls");
+        } else {
+            FileInputStream path = new FileInputStream(System.getProperty("user.dir") + "\\src\\test\\resources\\ddf.xls");
             return path;
         }
-       return null;
     }
 
 
