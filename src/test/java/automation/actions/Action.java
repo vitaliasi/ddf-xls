@@ -40,4 +40,9 @@ public class Action extends Driver {
         WebElement element = getDriver().findElement(by);
         actions.moveToElement(element).perform();
     }
+
+    public String getText(By by) throws Exception {
+        String output = getDriver().findElement(by).getText();
+        return output;
+    }
 }
