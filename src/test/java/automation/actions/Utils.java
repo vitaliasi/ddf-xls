@@ -7,6 +7,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.openqa.selenium.By;
 
 import java.io.FileInputStream;
+import java.util.Base64;
 import java.util.Random;
 
 //
@@ -55,15 +56,25 @@ public class Utils extends Action {
 
         action.setText("Populate field [First Name] with '"  +firstName+"'", By.id("firstName"), firstName);
         action.setText("Populate field [Last Name] with '"  +lastName+"'", By.id("lastName"), lastName);
+
+//        TODO save to personalNumber
         String employeeId = action.getText(By.id("employeeId"));
 
         action.click("Click [Checkbox]", By.id("chkLogin"));
 
+//        TODO save to userID
         String userId = firstName.substring(0,1) + lastName + randomNumber();
         action.setText("Populate [User Name] with '"  + userId +"'", By.id("user_name"), userId);
 
+//        TODO save to password
         String originalInput = "test input";
-//        String encodedString = Base64.getEncoder().encodeToString(originalInput.getBytes());
+        String encodedString = Base64.getEncoder().encodeToString(originalInput.getBytes());
+        System.out.println(encodedString);
+
+        byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
+        String decodedString = new String(decodedBytes);
+        System.out.println(decodedString);
+
     }
 
 }
