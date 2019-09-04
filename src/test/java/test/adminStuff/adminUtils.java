@@ -10,7 +10,14 @@ public class adminUtils extends Utils {
     }
 
     public void tc001_helper() throws Exception {
-            login();
-            addNewEmployee("");
+        login("Login with admin user", () -> {
+           return null;
+        });
         }
+
+    public void tc002_helper() throws Exception {
+        String userId = login("Login with admin user and create user", () -> {
+            return addNewEmployee();
+        });
+    }
     }
