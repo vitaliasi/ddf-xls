@@ -10,7 +10,6 @@ import java.io.FileInputStream;
 import java.util.Base64;
 import java.util.Random;
 
-//
 public class Utils extends Action {
 
     Action action = new Action();
