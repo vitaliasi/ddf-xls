@@ -61,7 +61,7 @@ public class Utils extends Action {
         System.out.println(employeeId);
         excelReader.writeTo();
 //        excelReader.read();
-        excelReader.writeToCell( "NewEmployees", 3, 3, employeeId);
+        excelReader.writeTo();
 
         action.click("Click [Checkbox]", By.id("chkLogin"));
 

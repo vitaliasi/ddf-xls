@@ -145,38 +145,6 @@ public class ExcelReader {
         return value;
     }
 
-    public void writeToCell(String sheetName, int rowIndex, int columnInt, String value) throws Exception {
-        try {
-//            set path
-            FileInputStream path = setPath();
-            FileOutputStream os = new FileOutputStream(String.valueOf(path));
-            HSSFWorkbook workbook = new HSSFWorkbook(path);
-            //            sheets
-            HSSFSheet sheet = workbook.getSheet(sheetName);
-
-
-//           rows
-//        Row row = sheet.createRow(rowIndex);
-
-        Row row = sheet.getRow(rowIndex);
-
-//            cells
-        Cell cell = row.createCell(columnInt);
-
-//        Cell cell = row.getCell(columnInt);
-        cell.setCellValue(value);
-
-
-        workbook.write(os);
-        System.out.println(cell+ "value inputted");
-
-    } catch (FileNotFoundException e) {
-        e.printStackTrace();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}
-
 public void writeTo () throws Exception {
     FileInputStream path = setPath();
     FileOutputStream os = new FileOutputStream(String.valueOf(path));
