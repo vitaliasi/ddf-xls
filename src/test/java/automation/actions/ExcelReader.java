@@ -172,7 +172,6 @@ public void writeToExcel(String sheetName, int rowIndex, int cellNum, String val
         FileInputStream inputStream = new FileInputStream(new File(pathToExcel));
         Workbook workbook = WorkbookFactory.create(inputStream);
 
-
         System.out.println(cellNum + "cell from writeToExcel");
         System.out.println(rowIndex + "row from writeToExcel");
 //          find sheet
@@ -215,42 +214,31 @@ public void writeToExcel(String sheetName, int rowIndex, int cellNum, String val
         try {
             FileInputStream inputStream = new FileInputStream(new File(pathToExcel));
             Workbook workbook = WorkbookFactory.create(inputStream);
+            System.out.println(cellNum + "cell from writeToExcel");
+            System.out.println(rowIndex + "row from writeToExcel");
+//          find sheet
+            Sheet sheetName1 = workbook.getSheet(sheetName);
+            System.out.println(sheetName1 + " sheetName1");
+//        get sheet's index int
+            int sheet = workbook.getSheetIndex(sheetName1);
+            System.out.println(sheet + " sheet index from writeToExcel");
 
-            Sheet sheet = workbook.getSheet(sheetName);
+            Row row = workbook.getSheetAt(sheet).getRow(rowIndex);
+            System.out.println("done1");
 
-            Row row = sheet.getRow(rowIndex);
-            Cell cell = row.getCell(cellNum);
+            try {
+//               remove second cell from first row
+                row.removeCell(row.getCell(cellNum));
+                System.out.println("done2");
+            } catch (Exception p) {
+            }
+
+            Cell cell = row.createCell(cellNum);
+            System.out.println("done3");
             cell.setCellValue(value);
+            System.out.println("done4");
 
-//        Object[][] bookData = {
-//                {"The Passionate Programmer", "Chad Fowler", 16},
-//                {"Software Craftmanship", "Pete McBreen", 26},
-//                {"The Art of Agile Development", "James Shore", 32},
-//                {"Continuous Delivery", "Jez Humble", 41},
-//        };
-//
-////        int rowCount = sheet.getLastRowNum();
-//
-//        for (Object[] aBook : bookData) {
-//            Row row = sheet.createRow(rowIndex);
-//
-//            int columnCount = 0;
-//
-//            Cell cell = row.createCell(cellNum);
-//            cell.setCellValue(value);
-//
-//            for (Object field : aBook) {
-//                cell = row.createCell(++columnCount);
-//                if (field instanceof String) {
-//                    cell.setCellValue((String) value);
-//                } else if (field instanceof Integer) {
-//                    cell.setCellValue((Integer) field);
-//                }
-//            }
-//
-//        }
             inputStream.close();
-
             FileOutputStream outputStream = new FileOutputStream(pathToExcel);
             workbook.write(outputStream);
             outputStream.close();
@@ -259,90 +247,4 @@ public void writeToExcel(String sheetName, int rowIndex, int cellNum, String val
             ex.printStackTrace();
         }
     }
-
-
-    public void writeTo2 (int rowIndex, int cellNum) throws Exception {
-        FileInputStream path = setPath();
-        FileOutputStream os = new FileOutputStream(String.valueOf(path));
-//Access the workbook
-        HSSFWorkbook workbook = new HSSFWorkbook(path);
-//Access the worksheet, so that we can update / modify it.
-        HSSFSheet worksheet = workbook.getSheetAt(0);
-// declare a Cell object
-        Cell cell = null;
-// Access the second cell in second row to update the value
-        cell = worksheet.getRow(rowIndex).getCell(cellNum);
-// Get current cell value value and overwrite the value
-        cell.setCellValue("OverRide existing value");
-//Close the InputStream
-
-//Open FileOutputStream to write updates
-//        try {
-//        FileOutputStream output_file = new FileOutputStream((String.valueOf(path)));
-//            workbook.write(output_file);
-//            output_file.close(); }
-//
-//            catch (FileNotFoundException ex) {
-////                Logger.getLogger(PruebaExcel.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-        workbook.write(os);
-        os.close();
-//        //write changes
-//        workbook.write(output_file);
-////close the stream
-//        output_file.close();
-    }
-
-
-public void another() throws Exception {
-    FileInputStream path = setPath();
-    File f = new File(System.getProperty(String.valueOf(path)));
-
-    HSSFWorkbook workbook = new HSSFWorkbook();
-    HSSFSheet worksheet = workbook.getSheet("NewEmployees");
-    HSSFRow row = worksheet.getRow(1);
-    HSSFCell cell = row.getCell(1);
-    cell.setCellValue("changed");
-
-//    enter code here
-
-    FileOutputStream output_file =new FileOutputStream(new File(String.valueOf(path)));
-    workbook.write(output_file);
-    output_file.close();
-}
-    public static void change() throws Exception {
-        HSSFWorkbook workbook=null;
-        HSSFSheet sheet;
-        FileInputStream path = setPath();
-
-            FileInputStream file = new FileInputStream(new File(String.valueOf(path)));
-
-            //Create Workbook instance holding reference to .xls file
-            workbook = new HSSFWorkbook(file);
-
-            //Get first/desired sheet from the workbook
-            //Most of people make mistake by making new sheet by looking in tutorial
-            sheet = workbook.getSheetAt(workbook.getActiveSheetIndex());
-
-
-            //Get the count in sheet
-            int rowCount = sheet.getLastRowNum()+1;
-            Row row = sheet.createRow(4);
-            System.out.println();
-            Cell c1 = row.createCell(2);
-            c1.setCellValue("one");
-            Cell c2 = row.createCell(1);
-            c2.setCellValue("two");
-            Cell c3 = row.createCell(3);
-            c3.setCellValue("three");
-
-
-            //Write the workbook in file system
-            FileOutputStream out = new FileOutputStream(new File(String.valueOf(path)));
-            workbook.write(out);
-            out.close();
-            System.out.println("Update Successfully");
-
-    }
-
 }
