@@ -257,4 +257,39 @@ public void writeTo () throws Exception {
 //        writeHLSXFile(3, 3);
 //    }
 
+    public static void change() throws Exception {
+        HSSFWorkbook workbook=null;
+        HSSFSheet sheet;
+        FileInputStream path = setPath();
+
+            FileInputStream file = new FileInputStream(new File(String.valueOf(path)));
+
+            //Create Workbook instance holding reference to .xls file
+            workbook = new HSSFWorkbook(file);
+
+            //Get first/desired sheet from the workbook
+            //Most of people make mistake by making new sheet by looking in tutorial
+            sheet = workbook.getSheetAt(workbook.getActiveSheetIndex());
+
+
+            //Get the count in sheet
+            int rowCount = sheet.getLastRowNum()+1;
+            Row row = sheet.createRow(4);
+            System.out.println();
+            Cell c1 = row.createCell(0);
+            c1.setCellValue("one");
+            Cell c2 = row.createCell(1);
+            c2.setCellValue("two");
+            Cell c3 = row.createCell(2);
+            c3.setCellValue("three");
+
+
+            //Write the workbook in file system
+            FileOutputStream out = new FileOutputStream(new File(String.valueOf(path)));
+            workbook.write(out);
+            out.close();
+            System.out.println("Update Successfully");
+
+    }
+
 }
