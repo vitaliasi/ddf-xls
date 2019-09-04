@@ -1,12 +1,11 @@
 package automation.actions;
 
+import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.CellReference;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.*;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -175,13 +174,14 @@ public class ExcelReader {
         e.printStackTrace();
     }
 }
+
 public void writeTo () throws Exception {
     FileInputStream path = setPath();
-    FileInputStream fsIP= new FileInputStream(new File(String.valueOf(path)));
+    FileOutputStream os = new FileOutputStream(String.valueOf(path));
 //Access the workbook
-    HSSFWorkbook wb = new HSSFWorkbook(fsIP);
+    HSSFWorkbook workbook = new HSSFWorkbook(path);
 //Access the worksheet, so that we can update / modify it.
-    HSSFSheet worksheet = wb.getSheetAt(0);
+    HSSFSheet worksheet = workbook.getSheetAt(0);
 // declare a Cell object
     Cell cell = null;
 // Access the second cell in second row to update the value
@@ -189,12 +189,64 @@ public void writeTo () throws Exception {
 // Get current cell value value and overwrite the value
     cell.setCellValue("OverRide existing value");
 //Close the InputStream
-    fsIP.close();
+    os.close();
 //Open FileOutputStream to write updates
     FileOutputStream output_file =new FileOutputStream(new File(String.valueOf(path)));
     //write changes
-    wb.write(output_file);
+    workbook.write(output_file);
 //close the stream
     output_file.close();
 }
+
+    public static void read() throws Exception {
+        FileInputStream path = setPath();
+        String excelFilePath = path.toString();
+
+        try {
+            FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
+            Workbook workbook = WorkbookFactory.create(inputStream);
+
+            Sheet sheet = workbook.getSheetAt(0);
+
+            Object[][] bookData = {
+                    {"The Passionate Programmer", "Chad Fowler", 16},
+                    {"Software Craftmanship", "Pete McBreen", 26},
+                    {"The Art of Agile Development", "James Shore", 32},
+                    {"Continuous Delivery", "Jez Humble", 41},
+            };
+
+            int rowCount = sheet.getLastRowNum();
+
+            for (Object[] aBook : bookData) {
+                Row row = sheet.createRow(++rowCount);
+
+                int columnCount = 0;
+
+                Cell cell = row.createCell(columnCount);
+                cell.setCellValue(rowCount);
+
+                for (Object field : aBook) {
+                    cell = row.createCell(++columnCount);
+                    if (field instanceof String) {
+                        cell.setCellValue((String) field);
+                    } else if (field instanceof Integer) {
+                        cell.setCellValue((Integer) field);
+                    }
+                }
+
+            }
+
+            inputStream.close();
+
+            FileOutputStream outputStream = new FileOutputStream("JavaBooks.xls");
+            workbook.write(outputStream);
+//            workbook.close();
+            outputStream.close();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+
+        }
+    }
+
 }

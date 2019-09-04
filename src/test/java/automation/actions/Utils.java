@@ -60,6 +60,7 @@ public class Utils extends Action {
         String employeeId = getDriver().findElement(By.id("employeeId")).getAttribute("value");
         System.out.println(employeeId);
         excelReader.writeTo();
+        excelReader.read();
 //        excelReader.writeToCell( "NewEmployees", 3, 3, employeeId);
 
         action.click("Click [Checkbox]", By.id("chkLogin"));
