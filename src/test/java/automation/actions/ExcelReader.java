@@ -2,6 +2,7 @@ package automation.actions;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.CellReference;
@@ -19,6 +20,7 @@ public class ExcelReader {
         String os = System.getProperty("os.name").toLowerCase();
         if (os.contains("mac")) {
             FileInputStream path = new FileInputStream(System.getProperty("user.dir") + "/src/test/resources/ddf.xls");
+            System.out.println(path);
             return path;
         } else {
             FileInputStream path = new FileInputStream(System.getProperty("user.dir") + "\\src\\test\\resources\\ddf.xls");
@@ -198,55 +200,93 @@ public void writeTo () throws Exception {
     output_file.close();
 }
 
-    public static void read() throws Exception {
-        FileInputStream path = setPath();
-        String excelFilePath = path.toString();
+//    public static void read() throws Exception {
+//        FileInputStream path = setPath();
+//        String excelFilePath = path.toString();
+//
+//        try {
+//            FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
+//            Workbook workbook = WorkbookFactory.create(inputStream);
+//
+//            Sheet sheet = workbook.getSheetAt(0);
+//
+//            Object[][] bookData = {
+//                    {"The Passionate Programmer", "Chad Fowler", 16},
+//                    {"Software Craftmanship", "Pete McBreen", 26},
+//                    {"The Art of Agile Development", "James Shore", 32},
+//                    {"Continuous Delivery", "Jez Humble", 41},
+//            };
+//
+//            int rowCount = sheet.getLastRowNum();
+//
+//            for (Object[] aBook : bookData) {
+//                Row row = sheet.createRow(++rowCount);
+//
+//                int columnCount = 0;
+//
+//                Cell cell = row.createCell(columnCount);
+//                cell.setCellValue(rowCount);
+//
+//                for (Object field : aBook) {
+//                    cell = row.createCell(++columnCount);
+//                    if (field instanceof String) {
+//                        cell.setCellValue((String) field);
+//                    } else if (field instanceof Integer) {
+//                        cell.setCellValue((Integer) field);
+//                    }
+//                }
+//
+//            }
+//
+//            inputStream.close();
+//
+//            FileOutputStream outputStream = new FileOutputStream("JavaBooks.xls");
+//            workbook.write(outputStream);
+////            workbook.close();
+//            outputStream.close();
+//
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//
+//        }
+//    }
 
-        try {
-            FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
-            Workbook workbook = WorkbookFactory.create(inputStream);
-
-            Sheet sheet = workbook.getSheetAt(0);
-
-            Object[][] bookData = {
-                    {"The Passionate Programmer", "Chad Fowler", 16},
-                    {"Software Craftmanship", "Pete McBreen", 26},
-                    {"The Art of Agile Development", "James Shore", 32},
-                    {"Continuous Delivery", "Jez Humble", 41},
-            };
-
-            int rowCount = sheet.getLastRowNum();
-
-            for (Object[] aBook : bookData) {
-                Row row = sheet.createRow(++rowCount);
-
-                int columnCount = 0;
-
-                Cell cell = row.createCell(columnCount);
-                cell.setCellValue(rowCount);
-
-                for (Object field : aBook) {
-                    cell = row.createCell(++columnCount);
-                    if (field instanceof String) {
-                        cell.setCellValue((String) field);
-                    } else if (field instanceof Integer) {
-                        cell.setCellValue((Integer) field);
-                    }
-                }
-
-            }
-
-            inputStream.close();
-
-            FileOutputStream outputStream = new FileOutputStream("JavaBooks.xls");
-            workbook.write(outputStream);
-//            workbook.close();
-            outputStream.close();
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-
-        }
-    }
+//    public static void writeHLSXFile(int row, int col) throws IOException {
+//        try {
+//            FileInputStream file = new FileInputStream("C:\\Users\\Sam\\files\\Masterproef lca\\lca-analysebeheer\\Test-Files\\exceltemplates\\template.xlsx");
+//
+//            HSSFWorkbook workbook = new HSSFWorkbook(file);
+//            HSSFSheet sheet = workbook.getSheetAt(0);
+//            Cell cell = null;
+//
+//            //Retrieve the row and check for null
+//            HSSFRow sheetrow = sheet.getRow(row);
+//            if(sheetrow == null){
+//                sheetrow = sheet.createRow(row);
+//            }
+//            //Update the value of cell
+//            cell = sheetrow.getCell(col);
+//            if(cell == null){
+//                cell = sheetrow.createCell(col);
+//            }
+//            cell.setCellValue("Pass");
+//
+//            file.close();
+//
+//            FileOutputStream outFile =new FileOutputStream(new File("C:\\Users\\Sam\\files\\Masterproef lca\\lca-analysebeheer\\Test-Files\\exceltemplates\\Output.xlsx"));
+//            workbook.write(outFile);
+//            outFile.close();
+//
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public static void here(String[] args) throws IOException {
+//        // TODO Auto-generated method stub
+//        writeHLSXFile(3, 3);
+//    }
 
 }
