@@ -8,7 +8,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 
-import java.io.FileInputStream;
+import java.io.*;
 import java.math.BigDecimal;
 
 public class ExcelReader {
@@ -144,5 +144,57 @@ public class ExcelReader {
         return value;
     }
 
+    public void writeToCell(String sheetName, int rowIndex, int columnInt, String value) throws Exception {
+        try {
+//            set path
+            FileInputStream path = setPath();
+            FileOutputStream os = new FileOutputStream(String.valueOf(path));
+            HSSFWorkbook workbook = new HSSFWorkbook(path);
+            //            sheets
+            HSSFSheet sheet = workbook.getSheet(sheetName);
 
+
+//           rows
+//        Row row = sheet.createRow(rowIndex);
+
+        Row row = sheet.getRow(rowIndex);
+
+//            cells
+        Cell cell = row.createCell(columnInt);
+
+//        Cell cell = row.getCell(columnInt);
+        cell.setCellValue(value);
+
+
+        workbook.write(os);
+        System.out.println(cell+ "value inputted");
+
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+public void writeTo () throws Exception {
+    FileInputStream path = setPath();
+    FileInputStream fsIP= new FileInputStream(new File(String.valueOf(path)));
+//Access the workbook
+    HSSFWorkbook wb = new HSSFWorkbook(fsIP);
+//Access the worksheet, so that we can update / modify it.
+    HSSFSheet worksheet = wb.getSheetAt(0);
+// declare a Cell object
+    Cell cell = null;
+// Access the second cell in second row to update the value
+    cell = worksheet.getRow(1).getCell(1);
+// Get current cell value value and overwrite the value
+    cell.setCellValue("OverRide existing value");
+//Close the InputStream
+    fsIP.close();
+//Open FileOutputStream to write updates
+    FileOutputStream output_file =new FileOutputStream(new File(String.valueOf(path)));
+    //write changes
+    wb.write(output_file);
+//close the stream
+    output_file.close();
+}
 }
