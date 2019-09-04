@@ -47,7 +47,7 @@ public class Utils extends Action {
 
         //>-------------------
         //excel part
-        int usersRowNumber = excelReader.getUnregisteredUser("NewEmployees","Status");
+        int usersRowNumber = excelReader.getUnregisteredUser("NewEmployees","PersonalNumber");
 
         String firstName =  excelReader.getInfoFromColumn("NewEmployees","FirstName", usersRowNumber).getStringCellValue();
         System.out.println(firstName+" - this is from method");
@@ -58,12 +58,16 @@ public class Utils extends Action {
         action.setText("Populate field [Last Name] with '"  +lastName+"'", By.id("lastName"), lastName);
 
 //        TODO save to personalNumber
-        String employeeId = action.getText(By.id("employeeId"));
+        String employeeId = getDriver().findElement(By.id("employeeId")).getAttribute("value");
+        System.out.println(employeeId);
+        excelReader.writeTo();
+//        excelReader.writeToCell( "NewEmployees", 3, 3, employeeId);
 
         action.click("Click [Checkbox]", By.id("chkLogin"));
 
 //        TODO save to userID
-        String userId = firstName.substring(0,1) + lastName + randomNumber();
+        String userId = firstName.substring(0,1) + lastName.substring(0,3) + randomNumber();
+        System.out.println(userId);
         action.setText("Populate [User Name] with '"  + userId +"'", By.id("user_name"), userId);
 
 //        TODO save to password
