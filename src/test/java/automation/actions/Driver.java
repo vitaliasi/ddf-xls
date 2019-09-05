@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit;
 
 public class Driver {
 
-//    private static WebDriver driver = openChrome();
-    private static WebDriver driver = openEdge();
+    private static WebDriver driver = openChrome();
+//    private static WebDriver driver = openEdge();
 //    private static WebDriver driver = openFirefox();
 
     protected static WebDriver openChrome() {

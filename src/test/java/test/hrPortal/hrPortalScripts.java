@@ -14,7 +14,7 @@ public class hrPortalScripts extends Utils {
 
     @After
     public void quitDriver() {
-//        quit();
+        quit();
         System.out.println("Browser has been closed");
     }
 
