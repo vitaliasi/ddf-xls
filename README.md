@@ -5,6 +5,9 @@ Project created using POI, Maven and jUnit
 Project set for both MacOS and Windows
 Can be run on three browsers (actions -> driver): Chrome, Edge, Firefox
 
+hrPortalScripts used only for test runs
+htProjectUtils contains method utils
+automation.actions class contains all configurations
 All data is taken from .xls file and outcome data written in .xls file.
 TC_001 test login uaing admin
 TC_002 login using admin, new user creation.
