@@ -2,6 +2,7 @@
 
 Test automation using selenium/java
 Project created using POI, Maven and jUnit
+Project set for both MacOS and Windows
 Can be run on three browsers (actions -> driver): Chrome, Edge, Firefox
 
 All data is taken from .xls file and outcome data written in .xls file.
